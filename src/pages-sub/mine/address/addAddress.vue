@@ -536,7 +536,6 @@ const searchAddress = async () => {
 }
 
 .form-item {
-  padding: 0;
   position: relative;
 }
 
@@ -550,10 +549,10 @@ const searchAddress = async () => {
 .form-input {
   width: 100%;
   font-size: 16px;
+  padding: 10px 15px;
   color: #333;
   background-color: transparent;
   border: none;
-  padding: 10px 15px;
 }
 
 .phone-input {
