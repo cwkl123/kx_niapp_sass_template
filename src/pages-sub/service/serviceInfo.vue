@@ -20,18 +20,6 @@
         </view>
       </view>
     </view>
-    <!-- <view
-      class="header"
-      :style="{ paddingTop: statusBarHeight + 'px', backgroundColor: themeColor }"
-    >
-      <!-- <image src="/static/images/service/top.png" class="header-bg" mode="widthFix" /> -->
-    </view>
-    <view class="nav-bar" :style="{ backgroundColor: themeColor }" @click="goBack">
-      <view class="flex center">
-        <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
-        <span style="color: white; font-size: 18px">华泾镇</span>
-      </view>
-    </view> -->
     <scroll-view :scroll-y="true" style="height: calc(100vh - 296rpx)" class="scroll-box">
       <view :style="`background: linear-gradient(to bottom, ${themeColor} 0%, #2f72f600 300rpx)`">
         <view class="banner-container">
