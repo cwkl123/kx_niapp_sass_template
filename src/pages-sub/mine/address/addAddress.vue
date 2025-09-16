@@ -371,12 +371,11 @@ onLoad((options) => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 .content-container {
   position: relative;
-  height: calc(100vh - 54px);
   z-index: 1;
 }
 
@@ -410,31 +409,29 @@ onLoad((options) => {
 }
 
 .form-container {
-  background-color: #fff;
   border-radius: 8px;
   padding: 0 15px;
   margin-top: 10px;
 }
 
 .form-item {
-  padding: 15px 0;
   position: relative;
 }
 
 .form-label {
   font-size: 15px;
+  padding-top: 15px;
   color: #666;
   margin-bottom: 8px;
 }
 
 .form-input {
   width: 100%;
-  height: 32px;
   font-size: 16px;
+  padding: 10px 15px;
   color: #333;
   background-color: transparent;
   border: none;
-  padding: 0;
 }
 
 .phone-input {
@@ -468,6 +465,7 @@ onLoad((options) => {
 .region-selector {
   display: flex;
   align-items: center;
+  padding: 10px 15px;
 
   .region-text {
     font-size: 16px;
@@ -532,7 +530,7 @@ onLoad((options) => {
 .menu-arrow {
   width: 40rpx;
   height: 40rpx;
-  margin-right: 10rpx;
+  margin-left: 10px;
 }
 
 /* 地址选择器样式 */
