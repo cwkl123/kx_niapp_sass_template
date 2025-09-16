@@ -330,7 +330,6 @@ function getLightenedColor(themeColor, percentage) {
     g: Math.min(255, Math.floor(color.g + (255 - color.g) * percentage)),
     b: Math.min(255, Math.floor(color.b + (255 - color.b) * percentage)),
   }
-  console.log('lightColor', lightColor)
   // 将RGB对象转换回十六进制字符串
   return rgbToHex(lightColor)
 }
