@@ -12,7 +12,6 @@
   <view class="page">
     <view class="top" :style="{ backgroundColor: themeColor }">
       <view class="top-bg" :style="{ backgroundColor: themeColor }"></view>
-      <!-- <image src="/static/images/home/background/bg.png" mode="widthFix" class="top-bg"></image> -->
       <view class="logo flex" @click="goBack">
         <view class="flex center">
           <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
