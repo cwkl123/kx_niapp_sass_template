@@ -2,7 +2,7 @@
  * @Author: August_rush
  * @Date: 2025-06-18 10:39:38
  * @LastEditors: cwkl123 1297224582@qq.com
- * @LastEditTime: 2025-09-11 11:03:26
+ * @LastEditTime: 2025-09-16 14:49:23
  * @FilePath: \huijiashenghuo_uniapp\src\components\au-tabbar\au-tabbar.vue
  * @Description: 
  * 
@@ -79,7 +79,7 @@ const tabbarStyle = isIOS
     @change="selectTabBar"
   >
     <template v-for="(item, idx) in tabbarList" :key="item.path">
-      <wd-tabbar-item v-if="item.text !== 'logo'" :title="item.text">
+      <wd-tabbar-item v-if="item.type !== 'logo'" :title="item.text">
         <template #icon>
           <wd-img
             :src="idx === tabbarStore.curIdx ? item.selectedIconPath : item.iconPath"

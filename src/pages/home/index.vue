@@ -2,7 +2,7 @@
  * @Author: August_rush
  * @Date: 2025-06-17 16:05:01
  * @LastEditors: cwkl123 1297224582@qq.com
- * @LastEditTime: 2025-09-16 14:10:26
+ * @LastEditTime: 2025-09-16 14:51:51
  * @FilePath: \huijiashenghuo_uniapp\src\pages\home\index.vue
  * @Description:
  *

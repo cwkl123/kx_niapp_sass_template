@@ -42,7 +42,8 @@
         "iconPath": "/static/tabbar/logo.png",
         "selectedIconPath": "/static/tabbar/logo.png",
         "pagePath": "pages/empty",
-        "text": "logo"
+        "text": "logo",
+        "type": "logo"
       },
       {
         "iconPath": "/static/tabbar/message.png",
