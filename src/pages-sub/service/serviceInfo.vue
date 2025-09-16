@@ -8,7 +8,19 @@
 </route>
 <template>
   <view class="container">
-    <view
+    <view class="top" :style="{ backgroundColor: themeColor }">
+      <view class="top-bg" :style="{ backgroundColor: themeColor }"></view>
+      <view class="logo flex" @click="goBack">
+        <view class="flex center">
+          <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
+          <span style="color: white; font-size: 18px">华泾镇</span>
+        </view>
+        <view>
+          <image src="/static/images/home.icon.zf.png" mode="widthFix" style="width: 20rpx"></image>
+        </view>
+      </view>
+    </view>
+    <!-- <view
       class="header"
       :style="{ paddingTop: statusBarHeight + 'px', backgroundColor: themeColor }"
     ></view>
@@ -17,177 +29,183 @@
         <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
         <span style="color: white; font-size: 18px">华泾镇</span>
       </view>
-    </view>
-    <view :style="`background: linear-gradient(to bottom, ${themeColor} 0%, #2f72f600 300rpx)`">
-      <view class="banner-container">
-        <swiper class="banner-swiper" autoplay circular>
-          <swiper-item v-for="(item, index) in banner" :key="index">
-            <image class="banner-image" :src="getImage(item)" mode="aspectFill" />
-          </swiper-item>
-          <swiper-item v-if="!banner || banner.length === 0">
-            <image class="banner-image" :src="getImage(defaultBanner)" mode="aspectFill" />
-          </swiper-item>
-        </swiper>
-        <view class="banner-indicator" v-if="!banner || banner.length === 0">商品 1/1</view>
-        <view class="banner-indicator" v-else>
-          商品 {{ currentBannerIndex + 1 }}/{{ banner.length }}
-        </view>
-      </view>
-
-      <!-- 价格区 -->
-      <view
-        class="price-section"
-        v-if="!isLoading"
-        :style="{
-          background: `linear-gradient(${getLightenedColor(themeColor, 0.3)}, ${themeColor})`,
-        }"
-      >
-        <view class="price-row">
-          <view class="price-main">
-            <text class="price-unit">¥</text>
-            <text class="price-number">{{ formatPrice(serveInfo?.price) }}</text>
-            <text class="price-unit">元起</text>
+    </view> -->
+    <scroll-view :scroll-y="true" style="height: calc(100vh - 296rpx)" class="scroll-box">
+      <view :style="`background: linear-gradient(to bottom, ${themeColor} 0%, #2f72f600 300rpx)`">
+        <view class="banner-container">
+          <swiper class="banner-swiper" autoplay circular>
+            <swiper-item v-for="(item, index) in banner" :key="index">
+              <image class="banner-image" :src="getImage(item)" mode="aspectFill" />
+            </swiper-item>
+            <swiper-item v-if="!banner || banner.length === 0">
+              <image class="banner-image" :src="getImage(defaultBanner)" mode="aspectFill" />
+            </swiper-item>
+          </swiper>
+          <view class="banner-indicator" v-if="!banner || banner.length === 0">商品 1/1</view>
+          <view class="banner-indicator" v-else>
+            商品 {{ currentBannerIndex + 1 }}/{{ banner.length }}
           </view>
-          <view class="coupon-price" v-if="hasUsableCoupon">
-            <text class="coupon-text">券后价￥</text>
-            <text class="coupon-number">{{ formatPrice(couponPrice) }}</text>
-            <text class="coupon-unit">元起</text>
-          </view>
-          <image src="/static/images/service/house.png" class="brand-logo" mode="aspectFit" />
-        </view>
-        <view class="sale-info">
-          <text class="sold-count">已售{{ sale }}+</text>
-          <!-- <text class="coupon-info" v-if="hasUsableCoupon">| 券·立减{{ formatPrice(CouponList[0]?.discountAmount || 0) }}</text> -->
-          <text class="coupon-info" v-if="hasUsableCoupon">| 券{{ couponDiscountText }}</text>
-        </view>
-      </view>
-
-      <!-- 服务信息区 -->
-      <view class="service-section" v-if="!isLoading">
-        <view class="service-title">{{ serveItemInfo.serviceTitle }}</view>
-        <view class="service-tags">
-          <view class="red-tag">
-            <view class="tag-hole"></view>
-            <text class="tag-text">
-              共{{ serveItemInfo?.specificationRule?.length || 0 }}种服务规格
-            </text>
-          </view>
-          <view class="tag top-sales">销量TOP3</view>
-          <view class="tag service-time">服务时间:{{ serveInfo.serveTime }}</view>
         </view>
 
-        <view class="coupon-list">
-          <view class="talk-top">
-            <view class="talk-top-left">
-              <image
-                src="/static/images/home/icon/talk.png"
-                style="width: 40rpx; height: 40rpx; margin-right: 20rpx"
-              ></image>
-              <view>评价（{{ commentCount }}）</view>
+        <!-- 价格区 -->
+        <view
+          class="price-section"
+          v-if="!isLoading"
+          :style="{
+            background: `linear-gradient(${getLightenedColor(themeColor, 0.3)}, ${themeColor})`,
+          }"
+        >
+          <view class="price-row">
+            <view class="price-main">
+              <text class="price-unit">¥</text>
+              <text class="price-number">{{ formatPrice(serveInfo?.price) }}</text>
+              <text class="price-unit">元起</text>
             </view>
-          </view>
-          <view class="talk-tag">
-            <view v-for="(tag, index) in commentTags" :key="index" class="talk-tag-item">
-              {{ tag.name }} {{ tag.count }}
+            <view class="coupon-price" v-if="hasUsableCoupon">
+              <text class="coupon-text">券后价￥</text>
+              <text class="coupon-number">{{ formatPrice(couponPrice) }}</text>
+              <text class="coupon-unit">元起</text>
             </view>
+            <image src="/static/images/service/house.png" class="brand-logo" mode="aspectFit" />
           </view>
-          <view v-for="(item, index) in visibleComments" :key="index" class="flex talk-box">
-            <view class="talk-text-box">
-              <view>
-                <image src="/static/images/service/avator.jpg" class="talk-head"></image>
-                {{ formatName(item.name) }}
+          <view class="sale-info">
+            <text class="sold-count">已售{{ sale }}+</text>
+            <!-- <text class="coupon-info" v-if="hasUsableCoupon">| 券·立减{{ formatPrice(CouponList[0]?.discountAmount || 0) }}</text> -->
+            <text class="coupon-info" v-if="hasUsableCoupon">| 券{{ couponDiscountText }}</text>
+          </view>
+        </view>
+
+        <!-- 服务信息区 -->
+        <view class="service-section" v-if="!isLoading">
+          <view class="service-title">{{ serveItemInfo.serviceTitle }}</view>
+          <view class="service-tags">
+            <view class="red-tag">
+              <view class="tag-hole"></view>
+              <text class="tag-text">
+                共{{ serveItemInfo?.specificationRule?.length || 0 }}种服务规格
+              </text>
+            </view>
+            <view class="tag top-sales">销量TOP3</view>
+            <view class="tag service-time">服务时间:{{ serveInfo.serveTime }}</view>
+          </view>
+
+          <view class="coupon-list">
+            <view class="talk-top">
+              <view class="talk-top-left">
+                <image
+                  src="/static/images/home/icon/talk.png"
+                  style="width: 40rpx; height: 40rpx; margin-right: 20rpx"
+                ></image>
+                <view>评价（{{ commentCount }}）</view>
               </view>
-              <view class="talk-text">{{ item.content }}</view>
             </view>
-          </view>
-        </view>
-
-        <view class="custom-section">
-          <view class="tabs-container">
-            <view
-              v-for="(tab, index) in tabList"
-              :key="index"
-              class="custom-tag"
-              :class="{
-                'active-blue': activeTab === index && (index === 0 || index === 2),
-                'active-white': activeTab === index && index === 1,
-              }"
-              @click="switchTab(index)"
-            >
-              <text class="tag-text">{{ tab.name }}</text>
-              <view class="tag-indicator"></view>
+            <view class="talk-tag">
+              <view v-for="(tag, index) in commentTags" :key="index" class="talk-tag-item">
+                {{ tag.name }} {{ tag.count }}
+              </view>
+            </view>
+            <view v-for="(item, index) in visibleComments" :key="index" class="flex talk-box">
+              <view class="talk-text-box">
+                <view>
+                  <image src="/static/images/service/avator.jpg" class="talk-head"></image>
+                  {{ formatName(item.name) }}
+                </view>
+                <view class="talk-text">{{ item.content }}</view>
+              </view>
             </view>
           </view>
 
-          <!-- 内容区 -->
-          <view class="custom-content-wrapper">
-            <view
-              v-if="activeTab == 0"
-              v-html="serveItemInfo.describe"
-              class="content-page"
-              :class="{
-                'active-blue-bg': activeTab === 0 || activeTab === 2,
-                'active-white-bg': activeTab === 1,
-              }"
-            >
-              <view class="detail-content" v-html="serviceData.detail"></view>
-            </view>
-            <view
-              v-if="activeTab === 1"
-              class="content-page"
-              :class="{
-                'active-blue-bg': activeTab === 0 || activeTab === 2,
-                'active-white-bg': activeTab === 1,
-              }"
-            >
+          <view class="custom-section">
+            <view class="tabs-container">
               <view
-                class="price-table-container"
-                v-if="serveItemInfo.consumableRule && serveItemInfo.consumableRule.length > 0"
+                v-for="(tab, index) in tabList"
+                :key="index"
+                class="custom-tag"
+                :class="{
+                  'active-blue': activeTab === index && (index === 0 || index === 2),
+                  'active-white': activeTab === index && index === 1,
+                }"
+                @click="switchTab(index)"
               >
-                <view class="table-header">
-                  <view class="header-item">材料</view>
-                  <view class="header-item">规格</view>
-                  <view class="header-item">单位</view>
-                  <view class="header-item">材料费</view>
-                </view>
-
-                <view
-                  v-for="(item, index) in serveItemInfo.consumableRule"
-                  :key="index"
-                  class="table-row"
-                >
-                  <view class="row-item name">{{ item.title }}</view>
-                  <view class="row-item spec">{{ '\\' }}</view>
-                  <view class="row-item unit">{{ item.unit }}</view>
-                  <view class="row-item price">￥{{ formatPrice(item.price) }}</view>
-                </view>
+                <text class="tag-text">{{ tab.name }}</text>
+                <view class="tag-indicator"></view>
               </view>
-              <view v-else class="empty-tip">暂无材料信息</view>
             </view>
-            <view
-              v-if="activeTab === 2"
-              v-html="serveItemInfo.safeguard"
-              class="content-page"
-              :class="{
-                'active-blue-bg': activeTab === 0 || activeTab === 2,
-                'active-white-bg': activeTab === 1,
-              }"
-            ></view>
-          </view>
-        </view>
 
-        <view class="fixed-footer">
-          <view class="footer-content">
-            <image src="/static/images/service/cow_hello.png" class="footer-cow" mode="aspectFit" />
-            <view class="service-container" @click="ToCustomerService">
-              <image src="/static/images/service/kefu.png" class="footer-icon" mode="aspectFit" />
-              <text class="footer-text">客服</text>
+            <!-- 内容区 -->
+            <view class="custom-content-wrapper">
+              <view
+                v-if="activeTab == 0"
+                v-html="serveItemInfo.describe"
+                class="content-page"
+                :class="{
+                  'active-blue-bg': activeTab === 0 || activeTab === 2,
+                  'active-white-bg': activeTab === 1,
+                }"
+              >
+                <view class="detail-content" v-html="serviceData.detail"></view>
+              </view>
+              <view
+                v-if="activeTab === 1"
+                class="content-page"
+                :class="{
+                  'active-blue-bg': activeTab === 0 || activeTab === 2,
+                  'active-white-bg': activeTab === 1,
+                }"
+              >
+                <view
+                  class="price-table-container"
+                  v-if="serveItemInfo.consumableRule && serveItemInfo.consumableRule.length > 0"
+                >
+                  <view class="table-header">
+                    <view class="header-item">材料</view>
+                    <view class="header-item">规格</view>
+                    <view class="header-item">单位</view>
+                    <view class="header-item">材料费</view>
+                  </view>
+
+                  <view
+                    v-for="(item, index) in serveItemInfo.consumableRule"
+                    :key="index"
+                    class="table-row"
+                  >
+                    <view class="row-item name">{{ item.title }}</view>
+                    <view class="row-item spec">{{ '\\' }}</view>
+                    <view class="row-item unit">{{ item.unit }}</view>
+                    <view class="row-item price">￥{{ formatPrice(item.price) }}</view>
+                  </view>
+                </view>
+                <view v-else class="empty-tip">暂无材料信息</view>
+              </view>
+              <view
+                v-if="activeTab === 2"
+                v-html="serveItemInfo.safeguard"
+                class="content-page"
+                :class="{
+                  'active-blue-bg': activeTab === 0 || activeTab === 2,
+                  'active-white-bg': activeTab === 1,
+                }"
+              ></view>
             </view>
-            <button class="footer-button" @click="toShowPopup">立即预约</button>
+          </view>
+
+          <view class="fixed-footer">
+            <view class="footer-content">
+              <image
+                src="/static/images/service/cow_hello.png"
+                class="footer-cow"
+                mode="aspectFit"
+              />
+              <view class="service-container" @click="ToCustomerService">
+                <image src="/static/images/service/kefu.png" class="footer-icon" mode="aspectFit" />
+                <text class="footer-text">客服</text>
+              </view>
+              <button class="footer-button" @click="toShowPopup">立即预约</button>
+            </view>
           </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
   <wd-popup
     v-model="showPopup"
@@ -598,6 +616,34 @@ const toConfirm = () => {
     z-index: 0;
   }
 }
+.top {
+  padding: 32rpx;
+  padding-top: 100rpx;
+  padding-bottom: 20rpx;
+  position: relative;
+}
+.top-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
+  position: relative;
+}
+.back-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+}
 .nav-bar {
   position: fixed;
   top: 0;
@@ -610,11 +656,6 @@ const toConfirm = () => {
   padding: 0 15px;
   padding-left: 40rpx;
   padding-bottom: 10px;
-  .back-icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 2px;
-  }
 
   .header-logo {
     width: 200rpx;
@@ -626,9 +667,7 @@ const toConfirm = () => {
 .banner-container {
   background: #f0f7ff;
   display: flex;
-
   position: relative;
-  margin-top: -50rpx;
   z-index: 1;
   border-radius: 16rpx;
   overflow: hidden;
@@ -873,7 +912,7 @@ const toConfirm = () => {
   border-radius: 8px;
   overflow: hidden;
   padding: 0rpx;
-  margin: 20px 0 40px 0;
+  margin-top: 20px;
 
   /* 标签栏容器 */
   .tabs-container {
