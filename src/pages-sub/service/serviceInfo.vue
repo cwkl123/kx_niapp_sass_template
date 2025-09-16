@@ -8,9 +8,10 @@
 </route>
 <template>
   <view class="container">
-    <view class="header" :style="{ paddingTop: statusBarHeight + 'px' }">
-      <!-- <image src="/static/images/service/top.png" class="header-bg" mode="widthFix" /> -->
-    </view>
+    <view
+      class="header"
+      :style="{ paddingTop: statusBarHeight + 'px', backgroundColor: themeColor }"
+    ></view>
     <view class="nav-bar" :style="{ backgroundColor: themeColor }" @click="goBack">
       <view class="flex center">
         <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
