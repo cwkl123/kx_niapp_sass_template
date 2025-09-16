@@ -2,7 +2,7 @@
  * @Author: August_rush
  * @Date: 2025-06-17 16:05:01
  * @LastEditors: cwkl123 1297224582@qq.com
- * @LastEditTime: 2025-09-10 17:33:07
+ * @LastEditTime: 2025-09-16 11:28:16
  * @FilePath: \huijiashenghuo_uniapp\src\pages\mine\index.vue
  * @Description:
  *
@@ -19,7 +19,6 @@
 
 <template>
   <view class="profile-container">
-    <!-- <image :src="'/static/images/mine/topBackground.png'" /> -->
     <view
       class="image-view"
       :style="`background: linear-gradient(180deg, ${themeColor} 40%, #2f72f600 80%)`"
@@ -68,8 +67,8 @@
             <text class="order-text">{{ order.text }}</text>
           </view>
         </view>
-
-        <view class="card-row">
+        <!-- 可编写地址 -->
+        <view class="card-row" v-if="userStore.userInfo.editAddress == 1">
           <!-- 服务地址卡片（占左半边） -->
           <view class="card address-card">
             <view class="menu-item" @click="toAddress">
@@ -122,6 +121,33 @@
                 <text class="menu-tip" v-else>暂无可用</text>
                 <image class="menu-arrow" :src="imagePaths.arrowRight" />
               </view>
+            </view>
+          </view>
+        </view>
+        <!-- 不可编写地址 -->
+        <view v-else>
+          <!-- 优惠券 -->
+          <view class="card card2" @click="toCouponList">
+            <view class="menu-item">
+              <image class="menu-icon" :src="Coupon.icon" />
+              <text class="menu-text" style="padding-left: 40rpx">{{ Coupon.text }}</text>
+              <text class="menu-tip1" v-if="Coupon.tip && loginInfoStore.loginInfo.isLogin">
+                {{ Coupon.tip }}张可用
+              </text>
+              <text class="menu-tip" v-else>暂无可用</text>
+              <image class="menu-arrow" :src="imagePaths.arrowRight" />
+            </view>
+          </view>
+          <!-- 卡包 -->
+          <view class="card card2" @click="toCard">
+            <view class="menu-item">
+              <image class="menu-icon" :src="Card.icon" />
+              <text class="menu-text" style="padding-left: 40rpx">{{ Card.text }}</text>
+              <text class="menu-tip1" v-if="Card.tip && loginInfoStore.loginInfo.isLogin">
+                {{ Card.tip }}张可用
+              </text>
+              <text class="menu-tip" v-else>暂无可用</text>
+              <image class="menu-arrow" :src="imagePaths.arrowRight" />
             </view>
           </view>
         </view>

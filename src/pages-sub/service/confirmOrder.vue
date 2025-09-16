@@ -222,7 +222,10 @@ const imgsStr = computed(() =>
 )
 
 onLoad((options) => {
-  getDefaultAddress()
+  console.log(userStore.userInfo.editAddress, '11111111111111111111111111')
+  if (userStore.userInfo.editAddress == 1) {
+    getDefaultAddress()
+  }
   getStatus()
   if (options.data) {
     const params = JSON.parse(decodeURIComponent(options.data))
@@ -253,17 +256,27 @@ const isHasPay = ref(false)
 const selectedTime = ref()
 const selectedUser = ref()
 const goAddress = () => {
-  uni.navigateTo({
-    url: '/pages-sub/mine/address/mineAddressPage?selectAddress=true',
-    events: {
-      // 定义接收地址的事件
-      onAddressSelected: (address) => {
-        console.log('收到选中的地址:', address)
-        // 在这里处理接收到的地址数据
-        handleAddressSelected(address)
+  if (userStore.userInfo.editAddress == 1) {
+    uni.navigateTo({
+      url: '/pages-sub/mine/address/mineAddressPage?selectAddress=true',
+      events: {
+        onAddressSelected: (address) => {
+          console.log('收到选中的地址:', address)
+          handleAddressSelected(address)
+        },
       },
-    },
-  })
+    })
+  } else {
+    uni.navigateTo({
+      url: '/pages-sub/mine/address/addAddress?selectAddress=true',
+      events: {
+        onAddressSelected: (address) => {
+          console.log('收到选中的地址:', address)
+          handleAddressSelected(address)
+        },
+      },
+    })
+  }
 }
 const getDefaultAddress = async () => {
   const { value } = await getAddressDetail({

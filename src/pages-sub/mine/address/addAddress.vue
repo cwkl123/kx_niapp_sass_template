@@ -31,7 +31,6 @@
             />
             <view class="line-divider"></view>
           </view>
-
           <!-- 手机号 -->
           <view class="form-item">
             <view class="form-label">手机号</view>
@@ -48,7 +47,6 @@
             </view>
             <view class="line-divider"></view>
           </view>
-
           <!-- 所在地区 -->
           <view class="form-item">
             <view class="form-label">所在地区</view>
@@ -60,9 +58,30 @@
             </view>
             <view class="line-divider"></view>
           </view>
-
-          <!-- 详细地址 -->
-          <view class="form-item">
+          <!-- 单选器 -->
+          <view class="form-item" v-if="showRadioGroup" style="padding-bottom: 0">
+            <wd-radio-group v-model="addressType" shape="button" @change="changeType">
+              <wd-radio :value="0">选择地址</wd-radio>
+              <wd-radio :value="1">编写地址</wd-radio>
+            </wd-radio-group>
+          </view>
+          <!-- 详细地址(选择地址) -->
+          <view class="form-item" v-if="showSelectInput">
+            <view class="form-label">详细地址</view>
+            <view class="address-picker-container">
+              <wd-select-picker
+                v-model="formData.address"
+                :columns="columns"
+                :disabled="!formData.townId"
+                filterable
+                type="radio"
+                custom-class="font-text"
+              ></wd-select-picker>
+            </view>
+            <view class="line-divider"></view>
+          </view>
+          <!-- 详细地址(编写地址) -->
+          <view class="form-item" v-if="showEditInput">
             <view class="form-label">详细地址</view>
             <input
               v-model="formData.address"
@@ -72,9 +91,12 @@
             />
             <view class="line-divider"></view>
           </view>
-
           <!-- 默认地址开关 -->
-          <view class="checkbox-item" @click="switchDefault">
+          <view
+            class="checkbox-item"
+            @click="switchDefault"
+            v-if="userStore.userInfo.editAddress == 1"
+          >
             <view class="custom-checkbox" :class="{ checked: formData.isDefault === 1 }">
               <wd-icon
                 color="#fff"
@@ -87,7 +109,6 @@
               {{ formData.isDefault === 1 ? '已设为默认服务地址' : '设为默认服务地址' }}
             </text>
           </view>
-
           <!-- 保存按钮 -->
           <button class="save-btn" @click="saveAddress">保存信息</button>
         </view>
@@ -147,22 +168,42 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import { onLoad } from '@dcloudio/uni-app'
-import { getlocationTown, getRegion, updateAddress, addAddress } from '@/service/base/addressApi'
+import {
+  getlocationTown,
+  getRegion,
+  updateAddress,
+  getUserAddress,
+  addAddress,
+  addAddressSelect,
+} from '@/service/base/addressApi'
 import { useUserStore } from '@/store'
-
+const columns = ref([
+  {
+    value: '101',
+    label: '男装',
+  },
+  {
+    value: '102',
+    label: '奢侈品',
+  },
+  {
+    value: '103',
+    label: '女装',
+  },
+])
 let themeColor = inject('themeColor')
 const userStore = useUserStore()
+const addressType = ref(0)
 // 表单数据
 const formData = reactive({
   uId: '',
   name: '',
   phone: '',
   address: '',
-  provinceId: '',
-  cityId: '',
-  countyId: '',
-  townId: '',
+  provinceId: null,
+  cityId: null,
+  countyId: null,
+  townId: null,
   isDefault: 0, // 默认地址 0 否 1 是
 })
 const isEdit = ref(false)
@@ -171,6 +212,45 @@ const showAddresRegion = ref(false)
 const countyName = ref('')
 const townName = ref('')
 const editTitle = ref('新添服务地址')
+
+const selectAddress = ref(false)
+const showRadioGroup = computed(() => {
+  return userStore.userInfo.editAddress === 1 && userStore.userInfo.selectAddress === 1
+})
+
+// 2. 控制“编写地址”输入框是否显示
+const showEditInput = computed(() => {
+  const hasEditRight = userStore.userInfo.editAddress === 1
+  const hasSelectRight = userStore.userInfo.selectAddress === 1
+
+  // 如果没有选择权限，但有编辑权限，则显示
+  if (!hasSelectRight && hasEditRight) {
+    return true
+  }
+  // 如果两个权限都有，并且当前选择了“编写地址”，则显示
+  if (hasSelectRight && hasEditRight && addressType.value === 1) {
+    return true
+  }
+  // 其他情况不显示
+  return false
+})
+
+// 3. 控制“选择地址”输入框是否显示
+const showSelectInput = computed(() => {
+  const hasEditRight = userStore.userInfo.editAddress === 1
+  const hasSelectRight = userStore.userInfo.selectAddress === 1
+
+  // 如果没有编辑权限，但有选择权限，则显示
+  if (!hasEditRight && hasSelectRight) {
+    return true
+  }
+  // 如果两个权限都有，并且当前选择了“选择地址”，则显示
+  if (hasEditRight && hasSelectRight && addressType.value === 0) {
+    return true
+  }
+  // 其他情况不显示
+  return false
+})
 
 const selProvince = ref({
   provinceId: '310000000000',
@@ -211,17 +291,18 @@ const confirmAddress = () => {
     uni.showToast({ title: '请选择所在街道', icon: 'none' })
     return
   }
-
+  if (addressType.value == 0) {
+    searchAddress()
+  }
   // 更新表单数据
   formData.countyId = selCounty.value.countyId
+  countyName.value = formData.countyName = selCounty.value.countyName
   formData.townId = selTown.value.townId
+  townName.value = formData.townName = selTown.value.townName
   formData.provinceId = selProvince.value.provinceId
+  formData.provinceName = selProvince.value.provinceName
   formData.cityId = selCity.value.cityId
-
-  // 更新显示名称
-  countyName.value = selCounty.value.countyName
-  townName.value = selTown.value.townName
-
+  formData.cityName = selCity.value.cityName
   showAddresRegion.value = false
 }
 //加载地址
@@ -293,6 +374,10 @@ const switchDefault = () => {
   formData.isDefault = formData.isDefault === 1 ? 0 : 1
 }
 
+const changeType = () => {
+  formData.address = null
+}
+
 // 保存地址
 const saveAddress = async () => {
   console.log('保存地址信息:', formData)
@@ -324,14 +409,20 @@ const saveAddress = async () => {
   formData.uId = userStore.userInfo.uId
   let res = null
   try {
-    if (isEdit.value) {
-      res = await updateAddress(formData)
+    if (selectAddress.value) {
+      res = await addAddressSelect(formData)
     } else {
-      res = await addAddress(formData)
+      if (isEdit.value) {
+        res = await updateAddress(formData)
+      } else {
+        res = await addAddress(formData)
+      }
     }
     if (res.code == '000') {
       console.log('res', res)
-      // 成功后返回
+      if (selectAddress.value) {
+        eventChannel.emit('onAddressSelected', res.value)
+      }
       uni.navigateBack()
     } else {
       uni.showToast({ title: res.message || '保存失败', icon: 'none' })
@@ -346,8 +437,8 @@ const saveAddress = async () => {
 const goBack = () => {
   uni.navigateBack()
 }
-
 // 页面加载钩子
+let eventChannel: UniApp.EventChannel | null = null
 onLoad((options) => {
   if (options.editData) {
     // 编辑模式下初始化表单数据
@@ -362,7 +453,46 @@ onLoad((options) => {
     editTitle.value = '编辑服务地址'
     isEdit.value = true
   }
+  if (options.selectAddress) {
+    selectAddress.value = true
+    const currentPage = getCurrentPages().pop()
+    if (currentPage) {
+      eventChannel = currentPage.getOpenerEventChannel()
+    }
+  }
 })
+
+const searchAddress = async () => {
+  uni.showLoading({
+    title: '加载中...',
+    mask: true,
+  })
+  try {
+    // 假设你有一个封装好的请求函数 requestApi
+    const res = await getUserAddress({
+      uId: userStore.userInfo.uId,
+    })
+    res.value.forEach((i) => {
+      i.value = i.label = i.address
+    })
+    columns.value = res.value
+    console.log(res.value, '111111111111111111')
+    uni.showToast({
+      title: '加载成功',
+      icon: 'success',
+    })
+  } catch (error) {
+    // 请求失败，处理错误
+    console.error('请求失败:', error)
+    uni.showToast({
+      title: '加载失败，请重试',
+      icon: 'none', // 不显示图标，只显示文字
+    })
+  } finally {
+    uni.hideLoading()
+  }
+  console.log('11234')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -464,7 +594,10 @@ onLoad((options) => {
   color: #333;
   margin-right: 12px;
 }
-
+.font-text {
+  font-size: 16px;
+  color: #333;
+}
 .region-selector {
   display: flex;
   align-items: center;
@@ -690,5 +823,8 @@ onLoad((options) => {
 
 .drawer-visible .drawer-content {
   transform: translateY(0);
+}
+.address-picker-container {
+  --wot-cell-title-fs: 16px;
 }
 </style>

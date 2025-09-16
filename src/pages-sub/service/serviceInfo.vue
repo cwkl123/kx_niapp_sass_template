@@ -11,7 +11,9 @@
     <view
       class="header"
       :style="{ paddingTop: statusBarHeight + 'px', backgroundColor: themeColor }"
-    ></view>
+    >
+      <!-- <image src="/static/images/service/top.png" class="header-bg" mode="widthFix" /> -->
+    </view>
     <view class="nav-bar" :style="{ backgroundColor: themeColor }" @click="goBack">
       <view class="flex center">
         <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
@@ -330,7 +332,6 @@ function getLightenedColor(themeColor, percentage) {
     g: Math.min(255, Math.floor(color.g + (255 - color.g) * percentage)),
     b: Math.min(255, Math.floor(color.b + (255 - color.b) * percentage)),
   }
-  console.log('lightColor', lightColor)
   // 将RGB对象转换回十六进制字符串
   return rgbToHex(lightColor)
 }
@@ -579,7 +580,6 @@ const toConfirm = () => {
 <style lang="scss" scoped>
 .container {
   position: relative;
-  background-color: #f5f5f5;
   min-height: 100vh;
   padding-bottom: 40rpx;
 }
@@ -625,9 +625,7 @@ const toConfirm = () => {
 }
 
 .banner-container {
-  background: #f0f7ff;
   display: flex;
-
   position: relative;
   margin-top: -50rpx;
   z-index: 1;

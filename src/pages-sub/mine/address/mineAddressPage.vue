@@ -116,7 +116,6 @@ const searchKeyword = ref('') // 搜索关键词
 const filteredAddressList = ref<any[]>([]) // 筛选后的地址列表
 
 const searchAddress = () => {
-  console.log(1111112)
   if (!searchKeyword.value.trim()) {
     // 关键词为空时显示全部
     filteredAddressList.value = [...addressList.value]

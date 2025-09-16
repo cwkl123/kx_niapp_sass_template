@@ -18,6 +18,17 @@ export const updateDefaultAddress = (param) => {
   })
 }
 
+export const addAddressSelect = (param) => {
+  return http({
+    url: '/repairsAddress/insertRepairsAddressSelect',
+    data: param,
+    showLoading: true,
+    loadingTitle: '正在保存',
+    showFinish: true,
+    finishTitle: '保存成功！',
+  })
+}
+
 export const findAddressCount = (param) => {
   return http({
     url: '/repairsAddress/findAddressCount',
