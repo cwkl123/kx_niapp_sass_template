@@ -2,7 +2,7 @@
  * @Author: August_rush
  * @Date: 2025-06-17 16:05:01
  * @LastEditors: cwkl123 1297224582@qq.com
- * @LastEditTime: 2025-09-16 14:51:51
+ * @LastEditTime: 2025-09-16 15:11:24
  * @FilePath: \huijiashenghuo_uniapp\src\pages\home\index.vue
  * @Description:
  *
@@ -383,6 +383,9 @@ const getMiniData = async () => {
   if (res.code == '000') {
     const config = JSON.parse(res.value.config)
     homePageConfig.value = config
+    homePageConfig.value.plateList = config.plateList.filter((item) => {
+      return item.isShow
+    })
     gifts.value.title = config.packageConfig.title
     gifts.value.isShow = config.packageConfig.isShow
     gifts.value.num = config.packageConfig.packageShowNum
