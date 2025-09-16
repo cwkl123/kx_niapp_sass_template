@@ -59,11 +59,13 @@
             <view class="line-divider"></view>
           </view>
           <!-- 单选器 -->
-          <view class="form-item" v-if="showRadioGroup" style="padding-bottom: 0">
-            <wd-radio-group v-model="addressType" shape="button" @change="changeType">
-              <wd-radio :value="0">选择地址</wd-radio>
-              <wd-radio :value="1">编写地址</wd-radio>
-            </wd-radio-group>
+          <view class="form-item" v-if="showRadioGroup">
+            <view class="form-label">
+              <wd-radio-group v-model="addressType" shape="button" @change="changeType">
+                <wd-radio :value="0">选择地址</wd-radio>
+                <wd-radio :value="1">编写地址</wd-radio>
+              </wd-radio-group>
+            </view>
           </view>
           <!-- 详细地址(选择地址) -->
           <view class="form-item" v-if="showSelectInput">
@@ -71,6 +73,7 @@
             <view class="address-picker-container">
               <wd-select-picker
                 v-model="formData.address"
+                placeholder="请选择详细地址"
                 :columns="columns"
                 :disabled="!formData.townId"
                 filterable
@@ -177,20 +180,7 @@ import {
   addAddressSelect,
 } from '@/service/base/addressApi'
 import { useUserStore } from '@/store'
-const columns = ref([
-  {
-    value: '101',
-    label: '男装',
-  },
-  {
-    value: '102',
-    label: '奢侈品',
-  },
-  {
-    value: '103',
-    label: '女装',
-  },
-])
+const columns = ref([])
 let themeColor = inject('themeColor')
 const userStore = useUserStore()
 const addressType = ref(0)
@@ -450,6 +440,7 @@ onLoad((options) => {
     if (data.townName) {
       townName.value = data.townName
     }
+    searchAddress()
     editTitle.value = '编辑服务地址'
     isEdit.value = true
   }
@@ -501,12 +492,11 @@ const searchAddress = async () => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 .content-container {
   position: relative;
-  height: calc(100vh - 54px);
   z-index: 1;
 }
 
@@ -540,31 +530,30 @@ const searchAddress = async () => {
 }
 
 .form-container {
-  background-color: #fff;
   border-radius: 8px;
   padding: 0 15px;
   margin-top: 10px;
 }
 
 .form-item {
-  padding: 15px 0;
+  padding: 0;
   position: relative;
 }
 
 .form-label {
   font-size: 15px;
+  padding-top: 15px;
   color: #666;
   margin-bottom: 8px;
 }
 
 .form-input {
   width: 100%;
-  height: 32px;
   font-size: 16px;
   color: #333;
   background-color: transparent;
   border: none;
-  padding: 0;
+  padding: 10px 15px;
 }
 
 .phone-input {
@@ -601,6 +590,7 @@ const searchAddress = async () => {
 .region-selector {
   display: flex;
   align-items: center;
+  padding: 10px 15px;
 
   .region-text {
     font-size: 16px;
@@ -665,7 +655,7 @@ const searchAddress = async () => {
 .menu-arrow {
   width: 40rpx;
   height: 40rpx;
-  margin-right: 10rpx;
+  margin-left: 10px;
 }
 
 /* 地址选择器样式 */
