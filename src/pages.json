@@ -43,7 +43,7 @@
         "selectedIconPath": "/static/tabbar/logo.png",
         "pagePath": "pages/empty",
         "text": "logo",
-        "type": "logo"
+        "name": "商城"
       },
       {
         "iconPath": "/static/tabbar/message.png",
