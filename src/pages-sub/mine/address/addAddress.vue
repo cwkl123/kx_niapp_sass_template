@@ -580,7 +580,7 @@ const searchAddress = async () => {
 .phone-prefix {
   font-size: 16px;
   color: #333;
-  margin-right: 12px;
+  margin-left: 12px;
 }
 .font-text {
   font-size: 16px;
