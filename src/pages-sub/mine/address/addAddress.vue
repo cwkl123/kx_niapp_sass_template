@@ -459,7 +459,7 @@ onLoad((options) => {
 .phone-prefix {
   font-size: 16px;
   color: #333;
-  margin-right: 12px;
+  margin-left: 12px;
 }
 
 .region-selector {
