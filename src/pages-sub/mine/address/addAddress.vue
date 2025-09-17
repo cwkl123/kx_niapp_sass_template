@@ -582,10 +582,6 @@ const searchAddress = async () => {
   color: #333;
   margin-left: 12px;
 }
-.font-text {
-  font-size: 16px;
-  color: #333;
-}
 .region-selector {
   display: flex;
   align-items: center;
