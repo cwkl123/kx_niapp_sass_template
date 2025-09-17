@@ -10,7 +10,7 @@
 <template>
   <view class="ez-page">
     <!-- 顶部导航栏 -->
-    <view class="nav-bar">
+    <view class="nav-bar" :style="{ backgroundColor: themeColor }">
       <view @click="goBackFf">
         <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
         <text class="nav-title">开票信息</text>
@@ -121,6 +121,7 @@ import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { invoiceIsuse } from '@/service/invoice/invoiceApi'
 
+let themeColor = inject('themeColor')
 // 参数对象
 const param = ref({
   orderId: '',
@@ -305,8 +306,7 @@ const showToast = (message: string) => {
   height: 44px;
   display: flex;
   align-items: center;
-  padding: 40px 16px 10px 16px;
-  background-color: #2f72f6;
+  padding: 40px 16px 0px 16px;
 
   .back-icon {
     width: 12px;
