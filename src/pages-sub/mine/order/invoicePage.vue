@@ -307,7 +307,6 @@ const showToast = (message: string) => {
   display: flex;
   align-items: center;
   padding: 40px 16px 0px 16px;
-  background-color: #2f72f6;
 
   .back-icon {
     width: 12px;
