@@ -62,8 +62,8 @@
           <view class="form-item" v-if="showRadioGroup">
             <view class="form-label">
               <wd-radio-group v-model="addressType" shape="button" @change="changeType">
-                <wd-radio :value="0">选择地址</wd-radio>
-                <wd-radio :value="1">编写地址</wd-radio>
+                <wd-radio :value="0">编写地址</wd-radio>
+                <wd-radio :value="1">选择地址</wd-radio>
               </wd-radio-group>
             </view>
           </view>
@@ -218,7 +218,7 @@ const showEditInput = computed(() => {
     return true
   }
   // 如果两个权限都有，并且当前选择了“编写地址”，则显示
-  if (hasSelectRight && hasEditRight && addressType.value === 1) {
+  if (hasSelectRight && hasEditRight && addressType.value === 0) {
     return true
   }
   // 其他情况不显示
@@ -235,7 +235,7 @@ const showSelectInput = computed(() => {
     return true
   }
   // 如果两个权限都有，并且当前选择了“选择地址”，则显示
-  if (hasEditRight && hasSelectRight && addressType.value === 0) {
+  if (hasEditRight && hasSelectRight && addressType.value === 1) {
     return true
   }
   // 其他情况不显示
