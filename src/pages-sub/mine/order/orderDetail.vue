@@ -66,7 +66,7 @@
                 >
                   <view style="display: flex; align-items: center; padding: 0 15px">
                     <view style="height: 60px; width: 60px">
-                      <image mode="aspectFit" src="/static/images/mine/order/logo.png" />
+                      <image mode="aspectFit" :src="getImgUrl(logo)" />
                     </view>
                     <view style="flex: 1; margin-left: 15px">
                       <view style="flex: 1; font-size: 16px; font-weight: 500">
@@ -615,6 +615,7 @@ import { getDetail, updateOrderAddress } from '@/service/order/orderApi'
 import { getHostUrl } from '@/service/cfgUrl.js'
 import OrderBtn from '@/components/order/orderBtn'
 let themeColor = inject('themeColor')
+let logo = inject('logo')
 // 安全区域
 const { safeAreaInsets } = getSafeAreaInsets()
 const order = ref()
