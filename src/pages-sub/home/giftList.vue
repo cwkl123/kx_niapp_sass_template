@@ -29,7 +29,7 @@
               src="/static/images/home/icon/blue1.png"
               style="height: 6rpx; width: 50rpx"
             ></image>
-            <text class="package-text">华泾镇服务套餐</text>
+            <text class="package-text">轻工物业服务套餐</text>
             <image
               src="/static/images/home/icon/blue2.png"
               style="height: 6rpx; width: 50rpx"

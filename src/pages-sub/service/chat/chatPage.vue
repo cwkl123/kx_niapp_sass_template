@@ -607,7 +607,7 @@ const handleWebSocketMessage = (res) => {
         type: TYPE.conversation[1],
         from: {
           id: 0,
-          username: '华泾镇',
+          username: '轻工物业',
           type: TYPE.send[0],
         },
 

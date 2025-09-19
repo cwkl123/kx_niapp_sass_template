@@ -15,7 +15,7 @@
       <view class="logo flex" @click="goBack">
         <view class="flex center">
           <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
-          <span style="color: white; font-size: 18px">华泾镇</span>
+          <span style="color: white; font-size: 18px">轻工物业</span>
         </view>
         <view>
           <image src="/static/images/home.icon.zf.png" mode="widthFix" style="width: 20rpx"></image>

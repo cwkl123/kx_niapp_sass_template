@@ -11,7 +11,7 @@
     <view class="top" :style="{ backgroundColor: themeColor }">
       <view class="logo flex" @click="goHome">
         <image src="/static/images/mine/back.png" class="back-icon" />
-        <view class="text">华泾镇</view>
+        <view class="text">轻工物业</view>
       </view>
     </view>
     <view class="search-box">
