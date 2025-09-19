@@ -608,7 +608,7 @@ const handleWebSocketMessage = (res) => {
         type: TYPE.conversation[1],
         from: {
           id: 0,
-          username: programName,
+          username: programName.value,
           type: TYPE.send[0],
         },
 
