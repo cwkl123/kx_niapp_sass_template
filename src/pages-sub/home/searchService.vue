@@ -11,7 +11,7 @@
     <view class="top" :style="{ backgroundColor: themeColor }">
       <view class="logo flex" @click="goHome">
         <image src="/static/images/mine/back.png" class="back-icon" />
-        <view class="text">轻工物业</view>
+        <view class="text">{{ programName }}</view>
       </view>
     </view>
     <view class="search-box">
@@ -77,6 +77,7 @@ import { useUserStore } from '@/store'
 import { tabbarStore } from '@/components/au-tabbar/tabbar'
 import { useLoginStore } from '@/store'
 
+let programName = inject('programName')
 let themeColor = inject('themeColor')
 const loginInfoStore = useLoginStore()
 const userStore = useUserStore()

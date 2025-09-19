@@ -29,7 +29,7 @@
               src="/static/images/home/icon/blue1.png"
               style="height: 6rpx; width: 50rpx"
             ></image>
-            <text class="package-text">轻工物业服务套餐</text>
+            <text class="package-text">{{ programName }}服务套餐</text>
             <image
               src="/static/images/home/icon/blue2.png"
               style="height: 6rpx; width: 50rpx"
@@ -72,6 +72,8 @@
 
 <script setup>
 import { requestGiftsList } from '@/service/gifts/giftsApi'
+
+let programName = inject('programName')
 let themeColor = inject('themeColor')
 const paGing = ref(null)
 const title = ref('套餐热销项目')

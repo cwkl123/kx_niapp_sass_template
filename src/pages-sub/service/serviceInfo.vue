@@ -13,32 +13,22 @@
       <view class="logo flex" @click="goBack">
         <view class="flex center">
           <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
-          <span style="color: white; font-size: 18px">轻工物业</span>
+          <span style="color: white; font-size: 18px">{{ programName }}</span>
         </view>
         <view>
           <image src="/static/images/home.icon.zf.png" mode="widthFix" style="width: 20rpx"></image>
         </view>
       </view>
     </view>
-    <!-- <view
-      class="header"
-      :style="{ paddingTop: statusBarHeight + 'px', backgroundColor: themeColor }"
-    ></view>
-    <view class="nav-bar" :style="{ backgroundColor: themeColor }" @click="goBack">
-      <view class="flex center">
-        <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
-        <span style="color: white; font-size: 18px">轻工物业</span>
-      </view>
-    </view> -->
     <scroll-view :scroll-y="true" style="height: calc(100vh - 296rpx)" class="scroll-box">
       <view :style="`background: linear-gradient(to bottom, ${themeColor} 0%, #2f72f600 300rpx)`">
         <view class="banner-container">
           <swiper class="banner-swiper" autoplay circular>
             <swiper-item v-for="(item, index) in banner" :key="index">
-              <image class="banner-image" :src="getImage(item)" mode="aspectFill" />
+              <image class="banner-image" :src="getImage(item)" mode="widthFix" />
             </swiper-item>
             <swiper-item v-if="!banner || banner.length === 0">
-              <image class="banner-image" :src="getImage(defaultBanner)" mode="aspectFill" />
+              <image class="banner-image" :src="getImage(defaultBanner)" mode="widthFix" />
             </swiper-item>
           </swiper>
           <view class="banner-indicator" v-if="!banner || banner.length === 0">商品 1/1</view>
@@ -268,6 +258,8 @@ import { getServiceCouponCount } from '@/service/coupon/ordercoupon'
 import { getServiceCouponList } from '@/service/coupon/ordercoupon'
 import { tabbarStore } from '@/components/au-tabbar/tabbar'
 import { generateComments, formatName, startAutoScroll } from '@/service/commentUtils'
+
+let programName = inject('programName')
 let themeColor = inject('themeColor')
 let defaultBanner = inject('defaultServiceImg')
 // 状态栏高度（模拟）
