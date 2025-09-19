@@ -2,7 +2,7 @@
  * @Author: August_rush
  * @Date: 2025-06-17 16:05:01
  * @LastEditors: cwkl123 1297224582@qq.com
- * @LastEditTime: 2025-09-16 15:06:12
+ * @LastEditTime: 2025-09-19 16:24:09
  * @FilePath: \huijiashenghuo_uniapp\src\pages\home\index.vue
  * @Description:
  *
@@ -139,7 +139,7 @@
                       src="/static/images/home/icon/blue1.png"
                       style="height: 6rpx; width: 50rpx"
                     ></image>
-                    <text class="package-text">华泾镇服务套餐</text>
+                    <text class="package-text">{{ programName }}服务套餐</text>
                     <image
                       src="/static/images/home/icon/blue2.png"
                       style="height: 6rpx; width: 50rpx"
@@ -194,7 +194,7 @@
                       src="/static/images/home/icon/blue1.png"
                       style="height: 6rpx; width: 50rpx"
                     ></image>
-                    <text class="package-text">华泾镇服务套餐</text>
+                    <text class="package-text">{{ programName }}服务套餐</text>
                     <image
                       src="/static/images/home/icon/blue2.png"
                       style="height: 6rpx; width: 50rpx"
@@ -276,20 +276,20 @@ import { useLoginStore, useConfigStore } from '@/store'
 import receiveCardView from './card.vue'
 import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 
+let programName = inject('programName')
 let themeColor = inject('themeColor')
 let logoImg = inject('logoImg')
-let defaultServiceImg = inject('defaultServiceImg')
 
 const configStore = useConfigStore()
 onShareAppMessage(() => {
   return {
-    title: '华泾镇',
+    title: programName,
     path: `/pages/home/index`,
   }
 })
 onShareTimeline(() => {
   return {
-    title: '华泾镇',
+    title: programName,
   }
 })
 const n = Number(import.meta.env.VITE_N)

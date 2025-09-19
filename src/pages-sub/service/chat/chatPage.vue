@@ -477,6 +477,7 @@ import { nextTick } from 'vue'
 import { useMessage } from '/node_modules/wot-design-uni'
 
 // 安全区域
+let programName = inject('programName')
 const { safeAreaInsets } = getSafeAreaInsets()
 const userStore = useUserStore()
 const websocketRequest = useWebSocket()
@@ -607,7 +608,7 @@ const handleWebSocketMessage = (res) => {
         type: TYPE.conversation[1],
         from: {
           id: 0,
-          username: '华泾镇',
+          username: programName,
           type: TYPE.send[0],
         },
 

@@ -15,7 +15,7 @@
       <view class="logo flex" @click="goBack">
         <view class="flex center">
           <image src="/static/images/mine/back.png" class="back-icon" mode="aspectFit" />
-          <span style="color: white; font-size: 18px">华泾镇</span>
+          <span style="color: white; font-size: 18px">{{ programName }}</span>
         </view>
         <view>
           <image src="/static/images/home.icon.zf.png" mode="widthFix" style="width: 20rpx"></image>
@@ -190,6 +190,8 @@ import { formatDate } from '@/service/cfgUrl'
 import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { generateComments, formatName, startAutoScroll } from '@/service/commentUtils'
 import { useLoginStore } from '@/store'
+
+let programName = inject('programName')
 let themeColor = inject('themeColor')
 // 页面分享给好友
 onShareAppMessage(() => {
