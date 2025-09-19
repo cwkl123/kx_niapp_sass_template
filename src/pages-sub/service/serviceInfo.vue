@@ -42,7 +42,7 @@
           class="price-section"
           v-if="!isLoading"
           :style="{
-            background: `linear-gradient(${getLightenedColor(themeColor, 0.3)}, ${themeColor})`,
+            background: `linear-gradient(${getLightenedColor(themeColor, 0.1)}, ${themeColor})`,
           }"
         >
           <view class="price-row">

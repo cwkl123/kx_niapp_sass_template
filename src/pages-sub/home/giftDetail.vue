@@ -33,7 +33,7 @@
             <view
               class="content-price"
               :style="{
-                background: `linear-gradient(${getLightenedColor(themeColor, 0.3)}, ${themeColor})`,
+                background: `linear-gradient(${getLightenedColor(themeColor, 0.1)}, ${themeColor})`,
               }"
             >
               <view class="content-price-num">
