@@ -25,7 +25,7 @@ export const useConfigStore = defineStore('config', () => {
     try {
       const param = {
         name: 'miniProgramHomeConfig',
-        tenantId: 'wx69fdd1c0ac8f3e90',
+        tenantId: 'wx3ce16b0a073907cb',
       }
       const res = await getConfigData(param)
       if (res.code === '000' && res.value?.themeColor) {

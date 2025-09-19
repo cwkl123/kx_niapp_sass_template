@@ -60,7 +60,7 @@ const httpInterceptor = {
     options.timeout = 20000 // 10s
     // 2. （可选）添加小程序端请求头标识
     options.header = {
-      'tenant-id': 'wx69fdd1c0ac8f3e90',
+      'tenant-id': 'wx3ce16b0a073907cb',
       platform, // 可选，与 uniapp 定义的平台一致，告诉后台来源
       ...options.header,
     }

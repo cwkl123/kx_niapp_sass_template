@@ -377,7 +377,7 @@ const handleSwiperChange = (e) => {
 const getMiniData = async () => {
   const param = {
     name: 'miniProgramHomeConfig',
-    tenantId: 'wx69fdd1c0ac8f3e90',
+    tenantId: 'wx3ce16b0a073907cb',
   }
   const res = await getConfigData(param)
   if (res.code == '000') {
@@ -393,7 +393,7 @@ const getMiniData = async () => {
 }
 const getRequestAdvertList = async (type) => {
   let requestParam = {
-    tenantId: 'wx69fdd1c0ac8f3e90',
+    tenantId: 'wx3ce16b0a073907cb',
     classType: type, //类型 1:轮播图 2:分类 3:推荐 4:腰图
   }
   const res = await requestAdvertList(requestParam)
@@ -447,7 +447,7 @@ const getGift = async () => {
   const params = {
     pageNum: 1,
     pageSize: gifts.value.num,
-    tenantId: 'wx69fdd1c0ac8f3e90',
+    tenantId: 'wx3ce16b0a073907cb',
   }
   const res = await requestGiftsList(params)
   if (res.value.list) {

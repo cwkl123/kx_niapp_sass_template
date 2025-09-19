@@ -102,7 +102,7 @@ const onQuery = async (page) => {
     const res = await requestGiftsList({
       pageNum: page,
       pageSize: 6,
-      tenantId: 'wx69fdd1c0ac8f3e90',
+      tenantId: 'wx3ce16b0a073907cb',
     })
     let list = res?.value?.list || []
     // 转换价格字段（分 -> 元）

@@ -35,7 +35,7 @@ export async function EzPost(param, backpage, backtype) {
   //请求方式:GET或POST(POST需配置header: {'content-type' : "application/x-www-form-urlencoded"},)
   // todo 处理header =============
   // token 信息
-  header['tenant-id'] = 'wx69fdd1c0ac8f3e90'
+  header['tenant-id'] = 'wx3ce16b0a073907cb'
   // 请求类型
 
   if (isJson) {

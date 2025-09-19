@@ -27,10 +27,7 @@ export function useWebSocket() {
 
   // 构建带 token 的 URL
   const getSocketUrl = () => {
-    console.log(
-      `${config.url}?token=${encodeURIComponent(token.value)}&tenant-id=wx69fdd1c0ac8f3e90`,
-    )
-    return `${config.url}?token=${encodeURIComponent(token.value)}&tenant-id=wx69fdd1c0ac8f3e90`
+    return `${config.url}?token=${encodeURIComponent(token.value)}&tenant-id=wx3ce16b0a073907cb`
   }
 
   // 连接 WebSocket

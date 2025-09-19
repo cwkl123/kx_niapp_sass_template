@@ -803,7 +803,7 @@ const handleSend = (conversationType, to, payload) => {
       type: TYPE.content[0],
       content: chat.sendText,
     },
-    tenantId: 'wx69fdd1c0ac8f3e90',
+    tenantId: 'wx3ce16b0a073907cb',
     timestamp: dateFormatToTimestamp(getNowDateTime()),
     dialogId: chat.dialogId,
   }
