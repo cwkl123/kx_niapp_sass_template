@@ -2,7 +2,7 @@
  * @Author: August_rush
  * @Date: 2025-06-17 16:05:01
  * @LastEditors: cwkl123 1297224582@qq.com
- * @LastEditTime: 2025-09-19 16:24:09
+ * @LastEditTime: 2025-09-19 16:40:04
  * @FilePath: \huijiashenghuo_uniapp\src\pages\home\index.vue
  * @Description:
  *
@@ -283,13 +283,13 @@ let logoImg = inject('logoImg')
 const configStore = useConfigStore()
 onShareAppMessage(() => {
   return {
-    title: programName,
+    title: programName.value,
     path: `/pages/home/index`,
   }
 })
 onShareTimeline(() => {
   return {
-    title: programName,
+    title: programName.value,
   }
 })
 const n = Number(import.meta.env.VITE_N)
