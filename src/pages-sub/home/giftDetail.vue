@@ -30,7 +30,12 @@
         <view class="content-box">
           <view class="content-top">
             <image :src="imgUrl" mode="widthFix" class="content-img"></image>
-            <view class="content-price">
+            <view
+              class="content-price"
+              :style="{
+                background: `linear-gradient(${getLightenedColor(themeColor, 0.3)}, ${themeColor})`,
+              }"
+            >
               <view class="content-price-num">
                 <view style="margin-bottom: 10rpx">
                   ￥
@@ -92,16 +97,6 @@
                       <view>赠送服务：{{ item.name }}*{{ item.count }}张</view>
                     </swiper-item>
                   </swiper>
-                  <!-- <view
-                    v-for="(item, index) in giftDetail.couponList"
-                    :key="index"
-                    class="coupon-list-text"
-                  >
-                    礼包内容：{{ item.name }}*{{ item.count }}张
-                  </view>
-                  <view v-for="(item, index) in giftDetail.giveCouponList" :key="index">
-                    赠送服务：{{ item.name }}*{{ item.count }}张
-                  </view> -->
                 </view>
                 <view class="coupon-list">
                   <view class="talk-top">
@@ -301,6 +296,36 @@ const getBuyView = async () => {
   const res = await addBuyView(params)
   console.log('测试数据文本', res)
 }
+function getLightenedColor(themeColor, percentage) {
+  // 将主题色转换为RGB对象
+  const color = hexToRgb(themeColor)
+  // 计算偏白色
+  const lightColor = {
+    r: Math.min(255, Math.floor(color.r + (255 - color.r) * percentage)),
+    g: Math.min(255, Math.floor(color.g + (255 - color.g) * percentage)),
+    b: Math.min(255, Math.floor(color.b + (255 - color.b) * percentage)),
+  }
+  // 将RGB对象转换回十六进制字符串
+  return rgbToHex(lightColor)
+}
+
+function hexToRgb(hex) {
+  // 解析十六进制颜色字符串
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return { r, g, b }
+}
+
+function rgbToHex(rgb) {
+  // 将RGB对象转换为十六进制颜色字符串
+  return (
+    '#' +
+    rgb.r.toString(16).padStart(2, '0') +
+    rgb.g.toString(16).padStart(2, '0') +
+    rgb.b.toString(16).padStart(2, '0')
+  )
+}
 
 function showModel() {
   if (loginInfoStore.loginInfo.isLogin) {
@@ -416,7 +441,6 @@ function goBuy() {
   padding: 20rpx;
   padding-bottom: 50rpx;
   width: 100%-40rpx;
-  background: linear-gradient(to right, #3f96f6, #75c6ff);
   border-radius: 20rpx 20rpx 0 0;
   margin-top: -70px;
   display: flex;
